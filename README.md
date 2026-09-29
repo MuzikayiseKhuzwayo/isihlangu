@@ -75,19 +75,30 @@ uv run isihlangu init-db
 ### Inspecting an MCP Server
 
 ```bash
+# From a JSON schema file
 uv run isihlangu inspect-mcp fixtures/sample_mcp_tools.json
+
+# From a live remote HTTP endpoint
+uv run isihlangu inspect-mcp http://127.0.0.1:8000/tools
+
+# From a local stdio command
+uv run isihlangu inspect-mcp --command "node /path/to/server.js"
 ```
 
 ### Running an Evaluation Scan with SARIF Export
 
 ```bash
-uv run isihlangu scan fixtures/sample_mcp_tools.json --target-name "Sandbox Agent" --output-sarif report.sarif
+# Offline simulation benchmark
+uv run isihlangu run fixtures/sample_mcp_tools.json --target-name "Sandbox Agent" --output-sarif report.sarif
+
+# Live network target execution against active server
+uv run isihlangu run fixtures/sample_mcp_tools.json --live --base-url http://127.0.0.1:8000 --canary-timeout 3.0 --output-sarif report.sarif
 ```
 
 ### Running the Out-of-Band Canary Listener
 
 ```bash
-uv run isihlangu canary --port 8877
+uv run isihlangu run-canary --host 127.0.0.1 --port 8877
 ```
 
 ### Next.js Visual Orchestration Dashboard
@@ -95,9 +106,11 @@ uv run isihlangu canary --port 8877
 Isihlangu includes a sleek, dark-mode cyber interface for interactive test orchestration:
 
 ```bash
-cd web
-npm install
+# Run directly from repository root
 npm run dev
+
+# Or navigate to web/
+cd web && npm run dev
 # Open http://localhost:3000 in your browser
 ```
 
