@@ -1,0 +1,12 @@
+{
+  "name": "isihlangu-root",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Root workspace proxy for Isihlangu Next.js visual dashboard",
+  "scripts": {
+    "dev": "npm --prefix web run dev",
+    "build": "npm --prefix web run build",
+    "start": "npm --prefix web run start",
+    "lint": "npm --prefix web run lint"
+  }
+}
