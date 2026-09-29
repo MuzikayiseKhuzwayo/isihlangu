@@ -90,6 +90,17 @@ uv run isihlangu scan fixtures/sample_mcp_tools.json --target-name "Sandbox Agen
 uv run isihlangu canary --port 8877
 ```
 
+### Next.js Visual Orchestration Dashboard
+
+Isihlangu includes a sleek, dark-mode cyber interface for interactive test orchestration:
+
+```bash
+cd web
+npm install
+npm run dev
+# Open http://localhost:3000 in your browser
+```
+
 ---
 
 ## 4. Docker Deployment
