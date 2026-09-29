@@ -1,0 +1,59 @@
+{
+  "tools": [
+    {
+      "name": "fetch_web_documentation",
+      "description": "Fetches external web documentation, developer links, or API specs from a given URL.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "The destination URL to fetch content from"
+          }
+        },
+        "required": ["url"]
+      }
+    },
+    {
+      "name": "delete_user_record",
+      "description": "Deletes a specified user profile and associated metadata from the database.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "description": "Identifier of the user record to delete"
+          }
+        },
+        "required": ["user_id"]
+      }
+    },
+    {
+      "name": "query_analytics_database",
+      "description": "Executes raw analytical SQL queries across system metrics.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "sql_query": {
+            "type": "string",
+            "description": "The SQL query string to execute"
+          }
+        },
+        "required": ["sql_query"]
+      }
+    },
+    {
+      "name": "get_system_status",
+      "description": "Returns current service health and uptime statistics.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "detail_level": {
+            "type": "string",
+            "enum": ["basic", "verbose"]
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+services:
+  isihlangu-canary:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: isihlangu-canary
+    restart: unless-stopped
+    ports:
+      - "8877:8877"
+    volumes:
+      - isihlangu-data:/app/data
+    environment:
+      - ISIHLANGU_CANARY_HOST=0.0.0.0
+      - ISIHLANGU_CANARY_PORT=8877
+      - ISIHLANGU_DATABASE_URL=sqlite+aiosqlite:////app/data/isihlangu.db
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8877/health', timeout=3)"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+
+volumes:
+  isihlangu-data:
+    name: isihlangu-data
