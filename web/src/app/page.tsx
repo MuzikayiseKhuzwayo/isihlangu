@@ -104,6 +104,12 @@ export default function Home() {
             setSteps([]);
             setSelectedFinding(null);
           }}
+          onUpdateTarget={(updated) => {
+            setSelectedTarget(updated);
+            setFindings([]);
+            setSteps([]);
+            setSelectedFinding(null);
+          }}
         />
 
         {/* Row 2: Tool Catalog (MCP Introspection & Deficiencies) */}
