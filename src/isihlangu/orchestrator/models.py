@@ -48,4 +48,6 @@ class InferenceClient:
                 return data["choices"][0]["message"]["content"]
         except httpx.RequestError as e:
             # When offline/testing, provide structured fallback
-            raise ProtocolExecutionError(f"Failed to connect to inference server at {url}: {e}") from e
+            raise ProtocolExecutionError(
+                f"Failed to connect to inference server at {url}: {e}"
+            ) from e

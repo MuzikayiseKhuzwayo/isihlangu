@@ -8,9 +8,7 @@ from isihlangu.core.types import MCPToolDefinition
 class OperatorNode:
     """Specialist node that crafts valid protocol payloads."""
 
-    def build_mcp_canary_payload(
-        self, tool: MCPToolDefinition, canary_url: str
-    ) -> dict[str, Any]:
+    def build_mcp_canary_payload(self, tool: MCPToolDefinition, canary_url: str) -> dict[str, Any]:
         """Crafts JSON-RPC arguments for an MCP tool that accepts URLs."""
         args: dict[str, Any] = {}
         props = tool.input_schema.get("properties", {})

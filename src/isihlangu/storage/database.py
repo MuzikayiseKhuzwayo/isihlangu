@@ -90,9 +90,7 @@ class DatabaseManager:
     async def verify_tables_exist(self, expected_tables: list[str]) -> None:
         """Verifies that all specified tables are present in the datastore."""
         async with self.get_connection() as conn:
-            cursor = await conn.execute(
-                "SELECT name FROM sqlite_master WHERE type='table';"
-            )
+            cursor = await conn.execute("SELECT name FROM sqlite_master WHERE type='table';")
             rows = await cursor.fetchall()
             existing_tables = {row["name"] for row in rows}
 
@@ -151,7 +149,9 @@ class DatabaseManager:
             )
             await conn.commit()
 
-    async def complete_session(self, session_id: str, summary: dict[str, Any], error: str | None = None) -> None:
+    async def complete_session(
+        self, session_id: str, summary: dict[str, Any], error: str | None = None
+    ) -> None:
         """Marks scan session completed with summary JSON."""
         status = "failed" if error else "completed"
         async with self.get_connection() as conn:
@@ -163,6 +163,7 @@ class DatabaseManager:
                 """,
                 (status, json.dumps(summary), error, session_id),
             )
+
     async def insert_hypothesis(self, hypothesis: AttackHypothesis) -> None:
         """Persists an attack hypothesis for a scan session."""
         async with self.get_connection() as conn:
@@ -199,6 +200,30 @@ class DatabaseManager:
                 ),
             )
             await conn.commit()
+
+    async def get_canary_token(self, token_uuid: str) -> dict[str, Any] | None:
+        """Retrieves canary token status and callback details."""
+        async with self.get_connection() as conn:
+            cursor = await conn.execute(
+                """
+                SELECT token_uuid, session_id, expected_type, target_component, callback_received, callback_source_ip, callback_payload, verified_at
+                FROM canary_tokens WHERE token_uuid = ?
+                """,
+                (token_uuid,),
+            )
+            row = await cursor.fetchone()
+            if not row:
+                return None
+            return {
+                "token_uuid": row["token_uuid"],
+                "session_id": row["session_id"],
+                "expected_type": row["expected_type"],
+                "target_component": row["target_component"],
+                "callback_received": bool(row["callback_received"]),
+                "callback_source_ip": row["callback_source_ip"],
+                "callback_payload": row["callback_payload"],
+                "verified_at": row["verified_at"],
+            }
 
     async def mark_canary_callback(
         self, token_uuid: str, source_ip: str, payload: str | None = None

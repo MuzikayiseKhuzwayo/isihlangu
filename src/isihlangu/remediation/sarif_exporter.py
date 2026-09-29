@@ -42,7 +42,9 @@ class SARIFExporter:
                     "locations": [
                         {
                             "physicalLocation": {
-                                "artifactLocation": {"uri": f"mcp://{vuln.evidence.get('tool_name', 'target')}"},
+                                "artifactLocation": {
+                                    "uri": f"mcp://{vuln.evidence.get('tool_name', 'target')}"
+                                },
                                 "region": {"startLine": 1},
                             }
                         }

@@ -13,7 +13,9 @@ def test_mcp_schema_patcher() -> None:
     }
 
     # Patch URL restriction
-    patched_url = patcher.patch_url_property(unhardened_schema, allowed_domains=["trusted.internal"])
+    patched_url = patcher.patch_url_property(
+        unhardened_schema, allowed_domains=["trusted.internal"]
+    )
     assert "pattern" in patched_url["properties"]["url"]
     assert "trusted\\.internal" in patched_url["properties"]["url"]["pattern"]
 
@@ -25,9 +27,9 @@ def test_mcp_schema_patcher() -> None:
 
 def test_rls_patcher() -> None:
     sql = RLSPatcher.generate_rls_sql("documents")
-    assert 'ENABLE ROW LEVEL SECURITY' in sql
-    assert 'tenant_isolation_select_documents' in sql
-    assert 'current_setting(\'app.current_tenant_id\', true)' in sql
+    assert "ENABLE ROW LEVEL SECURITY" in sql
+    assert "tenant_isolation_select_documents" in sql
+    assert "current_setting('app.current_tenant_id', true)" in sql
 
 
 def test_sarif_exporter() -> None:

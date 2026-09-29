@@ -48,6 +48,8 @@ class StateDiffEngine:
     ) -> bool:
         """Returns True if state changed in unauthorized records or properties."""
         allowed = set(allowed_keys or [])
-        all_changed_keys = set(diff["created"].keys()) | set(diff["modified"].keys()) | set(diff["deleted"])
+        all_changed_keys = (
+            set(diff["created"].keys()) | set(diff["modified"].keys()) | set(diff["deleted"])
+        )
         unauthorized = all_changed_keys - allowed
         return len(unauthorized) > 0

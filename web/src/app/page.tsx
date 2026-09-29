@@ -18,6 +18,7 @@ export default function Home() {
     'mcp_privilege_escalation',
     'excessive_agency',
   ]);
+  const [executionMode, setExecutionMode] = useState<'simulate' | 'live'>('simulate');
   const [isRunning, setIsRunning] = useState<boolean>(false);
   const [steps, setSteps] = useState<OrchestrationStep[]>([]);
   const [canaryTokens, setCanaryTokens] = useState<OOBToken[]>([]);
@@ -44,6 +45,7 @@ export default function Home() {
         body: JSON.stringify({
           target: selectedTarget,
           selectedVectors,
+          mode: executionMode,
         }),
       });
 
@@ -121,6 +123,8 @@ export default function Home() {
           onLaunchCampaign={handleLaunchCampaign}
           selectedVectors={selectedVectors}
           onToggleVector={handleToggleVector}
+          executionMode={executionMode}
+          onToggleExecutionMode={(mode) => setExecutionMode(mode)}
         />
 
         {/* Row 4: Execution Stream & Out-of-Band Canary Radar */}

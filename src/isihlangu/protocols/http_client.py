@@ -38,6 +38,8 @@ class GuardedHTTPClient:
                 )
                 return response
         except httpx.TimeoutException as e:
-            raise ProtocolExecutionError(f"HTTP request timed out connecting to '{url}': {e}") from e
+            raise ProtocolExecutionError(
+                f"HTTP request timed out connecting to '{url}': {e}"
+            ) from e
         except httpx.RequestError as e:
             raise ProtocolExecutionError(f"HTTP request failed for '{url}': {e}") from e

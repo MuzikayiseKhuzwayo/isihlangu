@@ -16,7 +16,11 @@ class MCPSchemaPatcher:
 
         domains = allowed_domains or ["localhost", "127.0.0.1"]
         escaped_domains = [d.replace(".", r"\.") for d in domains]
-        domain_pattern = r"^https?:\/\/(?:[a-zA-Z0-9_\-]+\.)*(?:" + "|".join(escaped_domains) + r")(?::\d+)?(?:\/.*)?$"
+        domain_pattern = (
+            r"^https?:\/\/(?:[a-zA-Z0-9_\-]+\.)*(?:"
+            + "|".join(escaped_domains)
+            + r")(?::\d+)?(?:\/.*)?$"
+        )
 
         for key, prop in props.items():
             if "url" in key.lower() or "uri" in key.lower():
